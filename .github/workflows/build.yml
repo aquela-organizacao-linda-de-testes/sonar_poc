@@ -40,7 +40,6 @@ jobs:
           projectBaseDir: "src"
           args: >
             -Dsonar.organization=va3rtbt43raffggs
-            -Dsonar.projectKey=sonar_poc
             -Dsonar.projectName=sonar_poc
             -Dsonar.python.coverage.reportPaths=coverage.xml
             -Dsonar.sources=.
