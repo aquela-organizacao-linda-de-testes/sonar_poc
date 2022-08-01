@@ -20,7 +20,8 @@ jobs:
         run: pip install pytest pytest-cov
       - name: Generate reports
         run: pytest --cov=src/sonar_poc src/tests/sonar_poc
-#      - name: Upload HTML coverage report
+        continue-on-error: true
+      #      - name: Upload HTML coverage report
 #        uses: actions/upload-artifact@v2
 #        with:
 #          name: cov_report
