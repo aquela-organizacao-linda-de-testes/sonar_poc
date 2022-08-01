@@ -19,18 +19,18 @@ jobs:
       - name: Setup python tests
         run: pip install pytest pytest-cov
       - name: Generate reports
-        run: pytest --cov=src/sonar_poc src/tests/sonar_poc
+        run: pytest --cov=src/sonar_poc --cov-report=xml --cov-report=html src/tests/sonar_poc
         continue-on-error: true
-      #      - name: Upload HTML coverage report
-#        uses: actions/upload-artifact@v2
-#        with:
-#          name: cov_report
-#          path: src/htmlcov
-#      - name: Upload XML coverage report
-#        uses: actions/upload-artifact@v2
-#        with:
-#          name: xml_report
-#          path: coverage.xml
+      - name: Upload HTML coverage report
+        uses: actions/upload-artifact@v2
+        with:
+          name: cov_report
+          path: src/htmlcov
+      - name: Upload XML coverage report
+        uses: actions/upload-artifact@v2
+        with:
+          name: xml_report
+          path: coverage.xml
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
