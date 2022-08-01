@@ -19,7 +19,7 @@ jobs:
       - name: Setup python tests
         run: pip install pytest pytest-cov
       - name: Generate reports
-        run: pytest --cov=src/sonar_poc --cov-report=xml --cov-report=html src/tests/sonar_poc
+        run: pytest --cov=src/sonar_poc --cov-report=xml src/tests/sonar_poc
         continue-on-error: true
       - name: Upload XML coverage report
         uses: actions/upload-artifact@v2
