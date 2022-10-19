@@ -23,7 +23,7 @@ jobs:
         id: fc
         with:
           issue-number: 1
-          body-includes: search string hotfix
+          body-includes: hotfix
       - run: |
           echo ${{ steps.fc.outputs.comment-id }}
           echo ${{ steps.fc.outputs.comment-body }}
