@@ -18,6 +18,16 @@ jobs:
           python-version: 3.9
       - name: Setup python tests
         run: pip install pytest pytest-cov
+      - name: Find Comment Hotfix
+        uses: peter-evans/find-comment@v2
+        id: fc
+        with:
+          issue-number: 1
+          body-includes: search string hotfix
+      - run: |
+          echo ${{ steps.fc.outputs.comment-id }}
+          echo ${{ steps.fc.outputs.comment-body }}
+          echo ${{ steps.fc.outputs.comment-author }}
       - name: Generate reports
         run: pytest -v --cov=. --cov-report=xml src/tests
 #        continue-on-error: true
