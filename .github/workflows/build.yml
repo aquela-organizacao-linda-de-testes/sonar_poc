@@ -22,8 +22,8 @@ jobs:
         uses: peter-evans/find-comment@v2
         id: fc
         with:
-          issue-number: 5
-          body-includes: hotfix
+          issue-number: ${{ github.event.number }}
+          body-includes: search string hotfix
       - run: |
           echo ${{ steps.fc.outputs.comment-id }}
           echo ${{ steps.fc.outputs.comment-body }}
