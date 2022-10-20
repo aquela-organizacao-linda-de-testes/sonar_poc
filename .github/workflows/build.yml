@@ -1,8 +1,6 @@
 name: Build
 
 on:
-  push:
-    branches: main
   pull_request:
     types: [opened, reopened, synchronize]
     
@@ -30,7 +28,8 @@ jobs:
           echo ${{ steps.fc.outputs.comment-id }}
           echo ${{ steps.fc.outputs.comment-body }}
           echo ${{ steps.fc.outputs.comment-author }}
-      - run: echo ${{github.event.comment}}
+      - if: steps.fc.outputs.comment-body != 0
+        run: echo TEM HOTFIX
       - name: Generate reports
         run: pytest -v --cov=. --cov-report=xml src/tests
 #        continue-on-error: true
