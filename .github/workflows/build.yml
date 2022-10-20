@@ -30,28 +30,28 @@ jobs:
           echo ${{ steps.fc.outputs.comment-author }}
       - if: steps.fc.outputs.comment-body != 0
         run: echo TEM HOTFIX
-      - name: Generate reports
-        run: pytest -v --cov=. --cov-report=xml src/tests
+#      - name: Generate reports
+#        run: pytest -v --cov=. --cov-report=xml src/tests
 #        continue-on-error: true
-      - name: Upload XML coverage report
-        uses: actions/upload-artifact@v2
-        with:
-          name: xml_report
-          path: coverage.xml
-      - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        with:
-          projectBaseDir: "src"
-          args: >
-            -Dsonar.organization=va3rtbt43raffggs
-            -Dsonar.projectKey=aquela-organizacao-linda-de-testes_sonar_poc
-            -Dsonar.projectName=sonar_poc
-            -Dsonar.python.coverage.reportPaths=coverage.xml
-            -Dsonar.sources=.
-            -Dsonar.test.exclusions=**/*test*.py
-            -Dsonar.exclusions=**/__init__.py,**/admin.py,**/apps.py,**/conftest.py,**/mocks.py,**/factories.py,**/*test*.py,**/migrations/*,**/users/*,**/url.py,**/db_router.py,**/*manage.py,**/*.html
-            -Dsonar.coverage.exclusions=**/__init__.py,**/admin.py,**/apps.py,**/conftest.py,**/mocks.py,**/factories.py,**/*test*.py,**/migrations/*,**/users/*,**/url.py,**/db_router.py,**/*manage.py
-            -Dsonar.verbose=false
+#      - name: Upload XML coverage report
+#        uses: actions/upload-artifact@v2
+#        with:
+#          name: xml_report
+#          path: coverage.xml
+#      - name: SonarCloud Scan
+#        uses: SonarSource/sonarcloud-github-action@master
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+#        with:
+#          projectBaseDir: "src"
+#          args: >
+#            -Dsonar.organization=va3rtbt43raffggs
+#            -Dsonar.projectKey=aquela-organizacao-linda-de-testes_sonar_poc
+#            -Dsonar.projectName=sonar_poc
+#            -Dsonar.python.coverage.reportPaths=coverage.xml
+#            -Dsonar.sources=.
+#            -Dsonar.test.exclusions=**/*test*.py
+#            -Dsonar.exclusions=**/__init__.py,**/admin.py,**/apps.py,**/conftest.py,**/mocks.py,**/factories.py,**/*test*.py,**/migrations/*,**/users/*,**/url.py,**/db_router.py,**/*manage.py,**/*.html
+#            -Dsonar.coverage.exclusions=**/__init__.py,**/admin.py,**/apps.py,**/conftest.py,**/mocks.py,**/factories.py,**/*test*.py,**/migrations/*,**/users/*,**/url.py,**/db_router.py,**/*manage.py
+#            -Dsonar.verbose=false
