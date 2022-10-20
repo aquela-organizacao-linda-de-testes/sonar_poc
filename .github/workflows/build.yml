@@ -22,7 +22,6 @@ jobs:
         uses: peter-evans/find-comment@v2
         id: fc
         with:
-          issue-number: 1
           body-includes: hotfix
       - run: |
           echo ${{ steps.fc.outputs.comment-id }}
