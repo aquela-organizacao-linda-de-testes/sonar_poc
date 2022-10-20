@@ -25,11 +25,12 @@ jobs:
         id: fc
         with:
           issue-number: ${{ github.event.number }}
-          body-includes: search string hotfix
+          body-includes: hotfix
       - run: |
           echo ${{ steps.fc.outputs.comment-id }}
           echo ${{ steps.fc.outputs.comment-body }}
           echo ${{ steps.fc.outputs.comment-author }}
+      - run: echo ${{github.event.comment}}
       - name: Generate reports
         run: pytest -v --cov=. --cov-report=xml src/tests
 #        continue-on-error: true
