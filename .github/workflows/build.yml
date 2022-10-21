@@ -1,6 +1,7 @@
 name: Build
 
 on:
+  push:
   pull_request:
     types: [opened, reopened, synchronize]
     
@@ -30,6 +31,11 @@ jobs:
           echo ${{ steps.fc.outputs.comment-author }}
       - if: steps.fc.outputs.comment-body != 0
         run: echo TEM HOTFIX
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 #      - name: Generate reports
 #        run: pytest -v --cov=. --cov-report=xml src/tests
 #        continue-on-error: true
