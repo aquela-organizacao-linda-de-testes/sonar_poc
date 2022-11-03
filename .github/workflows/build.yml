@@ -20,6 +20,8 @@ jobs:
       - name: Setup python tests
         run: pip install pytest pytest-cov
       - name: Test Push
+        run: echo ${{ github.event_name }}
+      - name: Test Push
         if: ${{ github.event_name == 'push' && github.event.pull_request.base.ref == 'main' }}
         run: ls -la
       - name: Find Comment Hotfix
