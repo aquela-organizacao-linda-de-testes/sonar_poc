@@ -19,7 +19,11 @@ jobs:
           python-version: 3.9
       - name: Setup python tests
         run: pip install pytest pytest-cov
+      - name: Test Push
+        if: ${{ github.event_name == 'push' && github.event.pull_request.base.ref == 'main' }}
+        run: ls -la
       - name: Find Comment Hotfix
+        if: ${{ github.event_name == 'pull request' }}
         uses: peter-evans/find-comment@v2
         id: fc
         with:
