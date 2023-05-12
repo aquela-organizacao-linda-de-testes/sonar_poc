@@ -22,55 +22,37 @@ jobs:
       - name: Setup python tests
         run: pip install pytest pytest-cov
 
-      - name: Test Push
-        run: echo ${{ github.event_name }}
-
-      - name: Test Push
-        if: ${{ github.event_name == 'push' && github.event.pull_request.base.ref == 'main' }}
-        run: ls -la
-
-      - name: Find Comment Hotfix
-        if: ${{ github.event_name == 'pull_request' }}
-        uses: peter-evans/find-comment@v2
-        id: fc
-        with:
-          issue-number: ${{ github.event.number }}
-          body-includes: /hotfix
-      - run: |
-          echo ${{ steps.fc.outputs.comment-id }}
-          echo ${{ steps.fc.outputs.comment-body }}
-          echo ${{ steps.fc.outputs.comment-author }}
-
-      - if: steps.fc.outputs.comment-body == 0
-        run: echo NAO TEM HOTFIX
-
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-#      - name: Generate reports
-#        run: pytest -v --cov=. --cov-report=xml src/tests
-#        continue-on-error: true
-#      - name: Upload XML coverage report
-#        uses: actions/upload-artifact@v2
-#        with:
-#          name: xml_report
-#          path: coverage.xml
-#      - name: SonarCloud Scan
-#        uses: SonarSource/sonarcloud-github-action@master
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-#        with:
-#          projectBaseDir: "src"
-#          args: >
-#            -Dsonar.organization=va3rtbt43raffggs
-#            -Dsonar.projectKey=aquela-organizacao-linda-de-testes_sonar_poc
-#            -Dsonar.projectName=sonar_poc
-#            -Dsonar.python.coverage.reportPaths=coverage.xml
-#            -Dsonar.sources=.
-#            -Dsonar.test.exclusions=**/*test*.py
-#            -Dsonar.exclusions=**/__init__.py,**/admin.py,**/apps.py,**/conftest.py,**/mocks.py,**/factories.py,**/*test*.py,**/migrations/*,**/users/*,**/url.py,**/db_router.py,**/*manage.py,**/*.html
-#            -Dsonar.coverage.exclusions=**/__init__.py,**/admin.py,**/apps.py,**/conftest.py,**/mocks.py,**/factories.py,**/*test*.py,**/migrations/*,**/users/*,**/url.py,**/db_router.py,**/*manage.py
-#            -Dsonar.verbose=false
+          
+      - name: Generate reports
+        run: pytest -v --cov=. --cov-report=xml src/tests
+        continue-on-error: true
+        
+      - name: Upload XML coverage report
+        uses: actions/upload-artifact@v2
+        with:
+          name: xml_report
+          path: coverage.xml
+          
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          projectBaseDir: "src"
+          args: >
+            -Dsonar.organization=va3rtbt43raffggs
+            -Dsonar.projectKey=aquela-organizacao-linda-de-testes_sonar_poc
+            -Dsonar.projectName=sonar_poc
+            -Dsonar.python.coverage.reportPaths=coverage.xml
+            -Dsonar.sources=.
+            -Dsonar.test.exclusions=**/*test*.py
+            -Dsonar.exclusions=**/__init__.py,**/admin.py,**/apps.py,**/conftest.py,**/mocks.py,**/factories.py,**/*test*.py,**/migrations/*,**/users/*,**/url.py,**/db_router.py,**/*manage.py,**/*.html
+            -Dsonar.coverage.exclusions=**/__init__.py,**/admin.py,**/apps.py,**/conftest.py,**/mocks.py,**/factories.py,**/*test*.py,**/migrations/*,**/users/*,**/url.py,**/db_router.py,**/*manage.py
+            -Dsonar.verbose=false
+            -Dsonar.python.version=3
