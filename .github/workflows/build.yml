@@ -29,7 +29,7 @@ jobs:
           coverage xml
           
       - name: Fix coverage paths
-        run: sed -i "s/<source>\/src<\/source>/<source>\/github\/workspace\/src<\/source>/g" coverage.xml
+        run: sed -i 's/\/home\/runner\/work\/sonar_poc\/sonar_poc\//\/github\/workspace\//g' coverage.xml
           
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
