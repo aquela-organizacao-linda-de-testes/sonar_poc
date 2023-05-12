@@ -28,6 +28,9 @@ jobs:
           coverage run --source=src/sonar_poc --omit="*/schemas/*" -m unittest
           coverage xml
           
+      - name: Fix coverage paths
+        run: sed -i "s/<source>\/home\/runner\/work\/sonar_poc\/sonar_poc<\/source>/<source>\/github\/workspace<\/source>/g" coverage.xml
+          
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
