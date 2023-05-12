@@ -23,7 +23,7 @@ jobs:
         run: pip install pytest pytest-cov
           
       - name: Generate reports
-        run: pytest -v --cov=src --cov-report=xml src/tests
+        run: pytest -v --cov=src/sonar_poc --cov-report=xml src/tests
           
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
