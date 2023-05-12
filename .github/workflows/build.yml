@@ -23,13 +23,7 @@ jobs:
         run: pip install pytest pytest-cov
           
       - name: Generate reports
-        run: pytest -v --cov=. --cov-report=xml src/tests
-        
-      - name: Upload XML coverage report
-        uses: actions/upload-artifact@v2
-        with:
-          name: xml_report
-          path: coverage.xml
+        run: pytest -v --cov=src --cov-report=xml src/tests
           
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
